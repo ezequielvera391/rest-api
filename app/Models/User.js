@@ -14,9 +14,11 @@ class User extends Model {
      * A hook to hash the user password before saving
      * it to the database.
      */
+    // Es algo que podemos utilizar para realizar acciones antes/despues de guardar/eliminar/modificar en base datos
+    // el siguiente hook se ejecuta antes de guardar un registro en la bbdd
     this.addHook('beforeSave', async (userInstance) => {
       if (userInstance.dirty.password) {
-        userInstance.password = await Hash.make(userInstance.password)
+        userInstance.password = await Hash.make(userInstance.password) 
       }
     })
   }

@@ -1,5 +1,7 @@
 'use strict'
 
+const UserController = require('../app/Controllers/Http/UserController')
+
 /*
 |--------------------------------------------------------------------------
 | Routes
@@ -19,3 +21,11 @@ const Route = use('Route')
 Route.get('/', () => {
   return { greeting: 'Hello world in JSON' }
 })
+
+Route.group(()=> {
+  Route.post('users/register', 'UserController.store');
+
+}).prefix('api/v1/')
+// adonis usa el modelo vista controlador 
+// debemos crear un controlador que maneje todos los metodos que utilicemos para -en este caso- los usuarios
+// las rutas deben estar lo más limpias posibles y no contener logica

@@ -4,9 +4,9 @@ const User = use('App/Models/User');
 
 class UserController {
     /* Esto es solamente una clase que contiene los metodos para los usuarios */
-    store({request}) {
+    async store({request}) {
         const { email,  password } = request.all();
-        const user = User.create({
+        const user = await User.create({
             email,
             password,
             username: email

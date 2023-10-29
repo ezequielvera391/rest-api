@@ -25,9 +25,10 @@ Route.get('/', () => {
 Route.group(()=> {
   Route.post('users/register', 'UserController.store');
   Route.post('users/login', 'UserController.login');
-  Route.get('project', 'ProjectController.index');
+  Route.get('project', 'ProjectController.index').middleware('auth');
 
 }).prefix('api/v1/')
+
 // adonis usa el modelo vista controlador 
 // debemos crear un controlador que maneje todos los metodos que utilicemos para -en este caso- los usuarios
 // las rutas deben estar lo más limpias posibles y no contener logica

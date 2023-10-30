@@ -1,6 +1,7 @@
 'use strict'
 
 const Project = use('App/Models/Project');
+const AuthService = use('App/Services/AuthService')
 
 class ProjectController {
 
@@ -27,11 +28,7 @@ class ProjectController {
         const { project_id } = params;
 
         const project = await Project.find(project_id)
-        console.log(project)
-        console.log(user)
-        if (project.user_id !== user.id) {
-            return response.status(401).json({message:'No tiene autorización para eliminar este proyecto'})
-        }
+        AuthService.permissionsCheck(project, user);
         await project.delete();
         return project
     }

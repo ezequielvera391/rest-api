@@ -11,7 +11,6 @@ class ProjectController {
     }
 
     async create({ auth, request }) {
-        // debe tomar el usuario y los daots necesarios para crear un proyecto
         const user = await auth.getUser();  
         const { name } = request.all();
 
@@ -31,6 +30,18 @@ class ProjectController {
         AuthService.permissionsCheck(project, user);
         await project.delete();
         return project
+    }
+
+    async update({ auth, request, params }) {
+        const user = await auth.getUser();
+        const { project_id } = params;
+        const project = await Project.find(project_id)
+        AuthService.permissionsCheck(project, user);
+
+        project.merge(request.only('name'));
+        await project.save();
+
+        return project;
     }
 }
 

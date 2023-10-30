@@ -28,6 +28,7 @@ Route.group(()=> {
   Route.get('project', 'ProjectController.index').middleware('auth');
   Route.post('project', 'ProjectController.create').middleware('auth');
   Route.delete('project/:project_id', 'ProjectController.destroy').middleware('auth');
+  Route.patch('project/:project_id', 'ProjectController.update').middleware('auth');
 }).prefix('api/v1/')
 
 // adonis usa el modelo vista controlador 

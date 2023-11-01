@@ -33,6 +33,8 @@ Route.group(()=> {
 
   Route.get('project/:project_id/tasks', 'TaskController.index').middleware('auth');
   Route.post('project/:project_id/tasks', 'TaskController.create').middleware('auth');
+  Route.patch('tasks/:task_id', 'TaskController.update').middleware('auth');
+  Route.delete('tasks/:task_id', 'TaskController.destroy').middleware('auth');
 }).prefix('api/v1/')
 
 // adonis usa el modelo vista controlador 

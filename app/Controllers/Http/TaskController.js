@@ -28,7 +28,34 @@ class TaskController {
         });
         await project.tasks().save(task);
         return task;
-    }    
+    }
+    
+    
+    async destroy({ auth, response, params }) {
+        const user = await auth.getUser(); 
+        const { task_id } = params;
+        const task = await Task.find(task_id)
+        const project = await task.project().fetch();
+        AuthService.permissionsCheck(project, user); 
+        await task.delete();
+        return task
+    }
+
+    async update({ auth, request, params }) {
+        const user = await auth.getUser(); 
+        const { task_id } = params;
+        const task = await Task.find(task_id)
+        const project = await task.project().fetch();
+        AuthService.permissionsCheck(project, user);
+
+
+        task.merge(request.only([
+            'description',
+            'complete'
+        ]));
+        await task.save();
+        return task;
+    }
 
 }
 
